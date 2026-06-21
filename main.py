@@ -13,6 +13,11 @@ class Post(BaseModel):
     published: bool = True
     rating: Optional[int] = None
 
+
+my_posts = [{"title": "Post 1", "content": "Content of post 1", "published": True, "rating": 5},
+            {"title": "Post 2", "content": "Content of post 2", "published": False, "rating": 4}]
+
+
 # creating a root endpoint that returns a welcome message
 @app.get("/")
 def root():
@@ -22,7 +27,7 @@ def root():
 # creating a posts endpoint that returns a list of posts
 @app.get("/posts")
 def get_posts():
-    return {"posts": ["Post 1", "Post 2", "Post 3"]}
+    return {"posts": my_posts}
 
 
 
