@@ -1,8 +1,17 @@
 from fastapi import FastAPI
 from fastapi.params import Body
+from pydantic import BaseModel
+from typing import Optional
+
 
 app = FastAPI()
 
+
+class Post(BaseModel):
+    title: str
+    content: str
+    published: bool = True
+    rating: Optional[int] = None
 
 # creating a root endpoint that returns a welcome message
 @app.get("/")
@@ -23,8 +32,8 @@ def create_post(post: str):
     return {"message": f"Post '{post}' created successfully!"}
 
 
-# creating a post endpoint that takes a post as a request body parameter that returns a message of the post created successfully
-@app.post("/createPosts")
-def create_posts(payload: dict = Body(...)):
-    print(payload)
-    return {"Post": payload}
+# creating a post with a schema that takes a post as a body parameter that returns the post created successfully
+@app.post("/createPost")
+def create_posts(post: Post):
+    print(post.title)
+    return {"Data": post.dict()}
