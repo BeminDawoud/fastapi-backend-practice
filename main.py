@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.params import Body
 from pydantic import BaseModel
 from typing import Optional
+from random import randrange
 
 
 app = FastAPI()
@@ -40,5 +41,8 @@ def create_post(post: str):
 # creating a post with a schema that takes a post as a body parameter that returns the post created successfully
 @app.post("/createPost")
 def create_posts(post: Post):
-    print(post.title)
+    post_dict = post.dict()
+    # not using a database yet, so we will generate a random id for the post
+    post_dict["id"] = randrange(0, 1000000)
+    my_posts.append(post_dict)
     return {"Data": post.dict()}
