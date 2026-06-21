@@ -10,3 +10,8 @@ def root():
 @app.get("/posts")
 def get_posts():
     return {"posts": ["Post 1", "Post 2", "Post 3"]}
+
+
+@app.post("/create_post/{post}")
+def create_post(post: str):
+    return {"message": f"Post '{post}' created successfully!"}
